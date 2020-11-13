@@ -1,5 +1,5 @@
 /******************* Boilerplate **************************/
-const { Engine, Render, Runner, World, Bodies } = Matter;
+const { Engine, Render, Runner, World, Bodies, MouseConstraint, Mouse } = Matter;
 
 //**1- new engine
 const engine = Engine.create();
@@ -22,7 +22,9 @@ const render = Render.create({
 Render.run(render);
 // 8- run everything with code below
 Runner.run(Runner.create(), engine);
-
+World.add(world, MouseConstraint.create(engine, {
+  mouse: Mouse.create(render.canvas)
+}));
 /********************* sample to make a shape ************************/
 
 // 9- create a shape -- from top left of the screen to the center of the object x, y axis:200,  width and height: 50
