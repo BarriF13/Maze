@@ -31,8 +31,7 @@ Render.run(render);
 // 8- run everything with code below
 Runner.run(Runner.create(), engine);
 
-/******** Making a Demo *********/
-//walls
+/******** Walls *********/
 const walls = [
   Bodies.rectangle(width / 2, 0, width, 40, { isStatic: true }),
   Bodies.rectangle(width / 2, height, width, 40, { isStatic: true }),
@@ -40,8 +39,21 @@ const walls = [
   Bodies.rectangle(width, height / 2, 40, height, { isStatic: true }),
 ]
 World.add(world, walls);
-// Single shape
-World.add(world, Bodies.rectangle(200, 200, 50, 50));
+/******** Maze *********/
+// const grid = []
+// for (i = 0; i < 3; i++) {
+//   grid.push([])
+//   for (j = 0; j < 3; j++) {
+//     grid[i].push(false);
+//   }
+// }
 
+const grid = Array(3)
+  .fill(null)
+  .map(() => Array(3).fill(false)); // need to use map() to not change the original array
+console.log(grid)
+/******** rectangle *********/
+
+World.add(world, Bodies.rectangle(200, 200, 50, 50));
 
 
