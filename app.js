@@ -8,7 +8,7 @@ const {
 } = Matter;
 const width = 600;
 const height = 600;
-const cells = 3;
+const cells = 10;
 
 const unitLength = width / cells;
 
@@ -202,3 +202,22 @@ const ball = Bodies.circle(
   unitLength / 4
 );
 World.add(world, ball)
+
+/***********    Keyboard  *********************/
+document.addEventListener('keydown', e => {
+  if (e.keyCode === 87) {
+    console.log('up')
+  } 
+  
+  if (e.keyCode === 68) {
+    console.log('R')
+
+  } 
+   if (e.keyCode === 83) {
+    console.log('d')
+
+  } 
+  if (e.keyCode === 65) {
+    console.log('L')
+  }
+})
