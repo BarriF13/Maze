@@ -8,6 +8,7 @@ const {
 } = Matter;
 const width = 800;
 const height = 600;
+const cells = 5;
 
 const engine = Engine.create();
 //**2-access snapshots of the object we have 
@@ -48,19 +49,19 @@ World.add(world, walls);
 //   }
 // }
 
-const grid = Array(3)
+const grid = Array(cells)
   .fill(null)
-  .map(() => Array(3).fill(false)); // need to use map() to not change the original array
+  .map(() => Array(cells).fill(false)); // need to use map() to not change the original array
 console.log(grid)
 
 /******** Verticals and Horizontals *********/
-  const verticals = Array(3)
+  const verticals = Array(cells)
   .fill(null)
-  .map(()=>Array(2).fill(false));
+  .map(()=>Array(cells -1).fill(false));
 
-  const horizontals = Array(2)
+  const horizontals = Array(cells -1)
   .fill(null)
-  .map(()=>Array(3).fill(false));
+  .map(()=>Array(cells).fill(false));
 
   console.log(verticals, horizontals)
 /******** rectangle *********/
