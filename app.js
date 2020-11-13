@@ -55,30 +55,41 @@ const grid = Array(cells)
 //console.log(grid)
 
 /******** Verticals and Horizontals *********/
-  const verticals = Array(cells)
+const verticals = Array(cells)
   .fill(null)
-  .map(()=>Array(cells -1).fill(false));
+  .map(() => Array(cells - 1).fill(false));
 
-  const horizontals = Array(cells -1)
+const horizontals = Array(cells - 1)
   .fill(null)
-  .map(()=>Array(cells).fill(false));
+  .map(() => Array(cells).fill(false));
 
- // console.log(verticals, horizontals)
+// console.log(verticals, horizontals)
 
 /******** Starting point *********/
 // --- pick a random start point
-  const startRow = Math.floor(Math.random()*cells);
-  const startColumn = Math.floor(Math.random()*cells);
-  //console.log(startRow, startColumn)
+const startRow = Math.floor(Math.random() * cells);
+const startColumn = Math.floor(Math.random() * cells);
+//console.log(startRow, startColumn)
 
 //--func for walk into the game
-const stepThroughCell = (row, column) =>{
-// CHECKS :If i have visited the cell [row, column ], then return 
-// mark the cell visited with false and true 
+const stepThroughCell = (row, column) => {
+  // CHECKS :If i have visited the cell [row, column ], then return 
+  if (grid[row][column]) {
+    return;
+  } else {
 
-//Assemble randomly- ordered list of neighbors
+  }
 
-// For each neighbor..
+  // mark the cell visited with false and true 
+  grid[row][column] = true;
+  //Assemble randomly- ordered list of neighbors
+  const neighbors = [
+    [row - 1, column],
+    [row, colum + 1],
+    [row + 1, column],
+    [row, column - 1]
+  ];
+  // For each neighbor..
   // see if that neighbor is out of bounds
   // CHECKS : we have visited neighbor , continue to next  
   //Remove a wall from either hor or ver arrays
@@ -87,6 +98,7 @@ const stepThroughCell = (row, column) =>{
 };
 // run the func for game to start 
 stepThroughCell(startRow, startColumn)
+console.log(grid)
 
 /******** rectangle *********/
 
