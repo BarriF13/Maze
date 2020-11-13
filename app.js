@@ -5,17 +5,18 @@ const {
   Runner,
   World,
   Bodies,
-  Body
+  Body,
+  Events
 } = Matter;
 const width = 600;
 const height = 600;
-const cells = 10;
+const cells = 3;
 
 const unitLength = width / cells;
 
 
 const engine = Engine.create();
-engine.world.gravity.y=0;
+engine.world.gravity.y = 0;
 //**2-access snapshots of the object we have 
 const { world } = engine;
 //**-3 render them on screen
@@ -191,7 +192,9 @@ const goal = Bodies.rectangle(
   height - unitLength / 2,
   unitLength * .7,
   unitLength * .7, {
-  isStatic: true
+  isStatic: true,
+  label: 'goal'
+
 }
 );
 World.add(world, goal)
@@ -201,30 +204,43 @@ World.add(world, goal)
 const ball = Bodies.circle(
   unitLength / 2,
   unitLength / 2,
-  unitLength / 4
+  unitLength / 4, {label: 'ball'}
+  
 );
 World.add(world, ball)
 
 /***********    Keyboard  *********************/
 document.addEventListener('keydown', e => {
-  const {x, y} = ball.velocity;
+  const { x, y } = ball.velocity;
   //console.log(x,y)
   if (e.keyCode === 87) {//w
     //console.log('up')
-    Body.setVelocity(ball, {x: x, y: y-5} );
-  } 
-  
-  if (e.keyCode === 68) {//d
-   // console.log('R')
-    Body.setVelocity(ball, {x: + 5, y: y} );
+    Body.setVelocity(ball, { x: x, y: y - 5 });
+  }
 
-  } 
-   if (e.keyCode === 83) {//s
+  if (e.keyCode === 68) {//d
+    // console.log('R')
+    Body.setVelocity(ball, { x: + 5, y: y });
+
+  }
+  if (e.keyCode === 83) {//s
     //console.log('d')
-    Body.setVelocity(ball, {x, y: y+5} );
-  } 
+    Body.setVelocity(ball, { x, y: y + 5 });
+  }
   if (e.keyCode === 65) {//a
     //console.log('L')
-    Body.setVelocity(ball, {x: -5, y} );
+    Body.setVelocity(ball, { x: -5, y });
   }
-})
+});
+/***********    WIN  *********************/
+Events.on(engine, 'collisionStart', e => {
+  e.pairs.forEach((collision) => {
+   // console.log(collision)
+   const labels = ['ball', 'goal'];
+
+   if(labels.includes(collision.bodyA.label) &&labels.includes(collision.bodyB.label) ){
+     console.log('User WON')
+   }
+
+  });
+});
