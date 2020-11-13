@@ -8,7 +8,7 @@ const {
 } = Matter;
 const width = 800;
 const height = 600;
-const cells = 5;
+const cells = 3;
 
 const engine = Engine.create();
 //**2-access snapshots of the object we have 
@@ -52,7 +52,7 @@ World.add(world, walls);
 const grid = Array(cells)
   .fill(null)
   .map(() => Array(cells).fill(false)); // need to use map() to not change the original array
-console.log(grid)
+//console.log(grid)
 
 /******** Verticals and Horizontals *********/
   const verticals = Array(cells)
@@ -63,7 +63,31 @@ console.log(grid)
   .fill(null)
   .map(()=>Array(cells).fill(false));
 
-  console.log(verticals, horizontals)
+ // console.log(verticals, horizontals)
+
+/******** Starting point *********/
+// --- pick a random start point
+  const startRow = Math.floor(Math.random()*cells);
+  const startColumn = Math.floor(Math.random()*cells);
+  //console.log(startRow, startColumn)
+
+//--func for walk into the game
+const stepThroughCell = (row, column) =>{
+// CHECKS :If i have visited the cell [row, column ], then return 
+// mark the cell visited with false and true 
+
+//Assemble randomly- ordered list of neighbors
+
+// For each neighbor..
+  // see if that neighbor is out of bounds
+  // CHECKS : we have visited neighbor , continue to next  
+  //Remove a wall from either hor or ver arrays
+  //visit the next cell -- means call the whole func again 
+
+};
+// run the func for game to start 
+stepThroughCell(startRow, startColumn)
+
 /******** rectangle *********/
 
 World.add(world, Bodies.rectangle(200, 200, 50, 50));
