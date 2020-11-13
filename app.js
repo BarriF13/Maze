@@ -8,15 +8,15 @@ const {
   Body,
   Events
 } = Matter;
-const width = window.innerWidth;
-const height =  window.innerHeight;
+const width = window.innerWidth-20;
+const height =  window.innerHeight-50;
 //const cells = 3;
 //const unitLength = width / cells;
-const cellsHorizontal = 13;
-const cellsVertical = 10;
+const cellsHorizontal = 18;
+const cellsVertical = 14;
 
 const unitLengthX = width / cellsHorizontal;
-const unitLengthY = width / cellsVertical;
+const unitLengthY = height / cellsVertical;
 
 
 const engine = Engine.create();
@@ -224,7 +224,7 @@ const ball = Bodies.circle(
  ballRadius , {
     label: 'ball',
     render: {
-      fillStyle: 'blue'
+      fillStyle: 'yellow'
     } }
 
 );
@@ -262,7 +262,7 @@ Events.on(engine, 'collisionStart', e => {
     if (labels.includes(collision.bodyA.label) &&
         labels.includes(collision.bodyB.label)) {
       //console.log('User WON')
-
+          document.querySelector('.winner').classList.remove('hidden');
       world.gravity.y = 1;// turn gravity on
       world.bodies.forEach( body =>{
         if(body.label === 'wall'){
@@ -274,3 +274,6 @@ Events.on(engine, 'collisionStart', e => {
 
   });
 });
+
+
+
