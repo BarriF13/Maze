@@ -99,7 +99,7 @@ const stepThroughCell = (row, column) => {
     [row - 1, column, 'up'],//up
     [row, column + 1, 'right'],//right
     [row + 1, column, 'down'],//down
-    [row, column - 1, ' left']// left
+    [row, column - 1, 'left']// left
   ]);
   // console.log(neighbors)
   // For each neighbor..
@@ -110,13 +110,19 @@ const stepThroughCell = (row, column) => {
       continue;//skip
     }
     // CHECKS : we have visited neighbor , continue to next neighbor
-    if(grid[nextRow][nextColumn]){
+    if (grid[nextRow][nextColumn]) {
       continue; //skip
     }
+    //Remove a wall from either hor or ver arrays
+    if(direction === 'left'){
+      verticals[row][column-1] = true;
+    } else if (direction === 'right' ){
+      verticals[row][column] = true;
+    }
   }
-  //Remove a wall from either hor or ver arrays
 
-  
+
+
   //visit the next cell -- means call the whole func again 
 
 };
