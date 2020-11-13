@@ -46,7 +46,7 @@ World.add(world, walls);
 
 /******** rectangle *********/
 
-World.add(world, Bodies.rectangle(200, 200, 50, 50));
+// World.add(world, Bodies.rectangle(200, 200, 50, 50));
 
 /******** Maze *********/
 // const grid = []
@@ -183,12 +183,22 @@ verticals.forEach((row, rowIndex) => {
   });
 });
 /***********    GOALS  *********************/
+
 const goal = Bodies.rectangle(
   width - unitLength / 2,
   height - unitLength / 2,
-  unitLength * .5,
-  unitLength * .5
-
-
+  unitLength * .7,
+  unitLength * .7, {
+  isStatic: true
+}
 );
 World.add(world, goal)
+
+
+/***********    Ball  *********************/
+const ball = Bodies.circle(
+  unitLength / 2,
+  unitLength / 2,
+  unitLength / 4
+);
+World.add(world, ball)
