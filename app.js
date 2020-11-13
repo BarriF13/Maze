@@ -21,3 +21,9 @@ const render = Render.create({
 Render.run(render);
 // 8- run everything with code below
 Runner.run(Runner.create(), engine);
+// 9- create a shape
+const shape = Bodies.rectangle(200, 200, 50, 50, {
+  isStatic: true
+});
+//10- Drop it to world
+World.add(world, shape)
