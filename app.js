@@ -48,7 +48,21 @@ World.add(world, walls);
 //     grid[i].push(false);
 //   }
 // }
+//--- Shuffle func for neighbors
+const shuffle = arr => {
+  let counter = arr.length;//3
 
+  while (counter > 0) {
+    const index = Math.floor(Math.random() * counter);//2
+    counter--;//2
+
+    const temp = arr[counter];//3th
+    arr[counter] = arr[index] //3th swap with 2th
+    arr[index] = temp; //2th swap with 3th
+
+  }
+  return arr;
+};
 const grid = Array(cells)
   .fill(null)
   .map(() => Array(cells).fill(false)); // need to use map() to not change the original array
@@ -76,29 +90,41 @@ const stepThroughCell = (row, column) => {
   // CHECKS :If i have visited the cell [row, column ], then return 
   if (grid[row][column]) {
     return;
-  } else {
-
   }
 
   // mark the cell visited with false and true 
   grid[row][column] = true;
-  //Assemble randomly- ordered list of neighbors
-  const neighbors = [
-    [row - 1, column],
-    [row, colum + 1],
-    [row + 1, column],
-    [row, column - 1]
-  ];
+  //Assemble randomly- ordered list of neighbors -- we need to find a way to randomize this
+  const neighbors = shuffle([
+    [row - 1, column, 'up'],//up
+    [row, column + 1, 'right'],//right
+    [row + 1, column, 'down'],//down
+    [row, column - 1, ' left']// left
+  ]);
+  // console.log(neighbors)
   // For each neighbor..
-  // see if that neighbor is out of bounds
-  // CHECKS : we have visited neighbor , continue to next  
+  for (let neighbor of neighbors) {
+    // see if that neighbor is out of bounds
+    const [nextRow, nextColumn, direction] = neighbor;
+    if (nextRow < 0 || nextRow >= cells || nextColumn < 0 || nextColumn >= cells) {
+      continue;//skip
+    }
+    // CHECKS : we have visited neighbor , continue to next neighbor
+    if(grid[nextRow][nextColumn]){
+      continue; //skip
+    }
+  }
   //Remove a wall from either hor or ver arrays
+
+  
   //visit the next cell -- means call the whole func again 
 
 };
+
 // run the func for game to start 
-stepThroughCell(startRow, startColumn)
-console.log(grid)
+//stepThroughCell(startRow, startColumn)
+stepThroughCell(1, 1)
+//console.log(grid)
 
 /******** rectangle *********/
 
