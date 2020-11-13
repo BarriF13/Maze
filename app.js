@@ -10,9 +10,13 @@ const {
 } = Matter;
 const width = window.innerWidth;
 const height =  window.innerHeight;
-const cells = 3;
+//const cells = 3;
+//const unitLength = width / cells;
+const cellsHorizontal = 4;
+const cellsVertical = 3;
 
-const unitLength = width / cells;
+const unitLengthX = width / cellsHorizontal;
+const unitLengthY = width / cellsVertical;
 
 
 const engine = Engine.create();
@@ -74,26 +78,27 @@ const shuffle = arr => {
   }
   return arr;
 };
-const grid = Array(cells)
+//const grid = Array(cells)
+const grid = Array(cellsVertical)//row
   .fill(null)
-  .map(() => Array(cells).fill(false)); // need to use map() to not change the original array
+  .map(() => Array(cellsHorizontal).fill(false)); // need to use map() to not change the original array//making column
 //console.log(grid)
 
 /******** Verticals and Horizontals *********/
-const verticals = Array(cells)
+const verticals = Array(cellsVertical)
   .fill(null)
-  .map(() => Array(cells - 1).fill(false));
+  .map(() => Array(cellsHorizontal - 1).fill(false));
 
-const horizontals = Array(cells - 1)
+const horizontals = Array(cellsVertical - 1)
   .fill(null)
-  .map(() => Array(cells).fill(false));
+  .map(() => Array(cellsHorizontal).fill(false));
 
 // console.log(verticals, horizontals)
 
 /******** Starting point *********/
 // --- pick a random start point
-const startRow = Math.floor(Math.random() * cells);
-const startColumn = Math.floor(Math.random() * cells);
+const startRow = Math.floor(Math.random() * cellsVertical);
+const startColumn = Math.floor(Math.random() * cellsHorizontal);
 //console.log(startRow, startColumn)
 
 //--func for walk into the game
@@ -119,9 +124,9 @@ const stepThroughCell = (row, column) => {
     const [nextRow, nextColumn, direction] = neighbor;
     if (
       nextRow < 0 ||
-      nextRow >= cells ||
+      nextRow >= cellsVertical ||
       nextColumn < 0 ||
-      nextColumn >= cells
+      nextColumn >= cellsHorizontal
     ) {
       continue;//skip
     }
@@ -158,10 +163,10 @@ horizontals.forEach((row, rowIndex) => {
       return;
     }
     const wall = Bodies.rectangle(
-      columnIndex * unitLength + unitLength / 2,
-      rowIndex * unitLength + unitLength,
-      unitLength,
-      10, {
+      columnIndex * unitLengthX + unitLengthX / 2,
+      rowIndex * unitLengthY + unitLengthY,
+      unitLengthX,
+      5, {
         label: 'wall',
       isStatic: true
     }
@@ -175,10 +180,10 @@ verticals.forEach((row, rowIndex) => {
       return;
     }
     const wall = Bodies.rectangle(
-      columnIndex * unitLength + unitLength,
-      rowIndex * unitLength + unitLength / 2,
-      10,
-      unitLength,
+      columnIndex * unitLengthX + unitLengthX,
+      rowIndex * unitLengthY+ unitLengthY / 2,
+      5,
+      unitLengthY,
       {
         label: 'wall',
         isStatic: true
@@ -190,10 +195,10 @@ verticals.forEach((row, rowIndex) => {
 /***********    GOALS  *********************/
 
 const goal = Bodies.rectangle(
-  width - unitLength / 2,
-  height - unitLength / 2,
-  unitLength * .7,
-  unitLength * .7, {
+  width - unitLengthX / 2,
+  height - unitLengthY / 2,
+  unitLengthX * .7,
+  unitLengthY * .7, {
   isStatic: true,
   label: 'goal'
 
@@ -203,10 +208,11 @@ World.add(world, goal)
 
 
 /***********    Ball  *********************/
+const ballRadius = Math.min(unitLengthX, unitLengthY )/4;
 const ball = Bodies.circle(
-  unitLength / 2,
-  unitLength / 2,
-  unitLength / 4, { label: 'ball' }
+  unitLengthX / 2,
+  unitLengthY / 2,
+ ballRadius , { label: 'ball' }
 
 );
 World.add(world, ball)
@@ -215,21 +221,21 @@ World.add(world, ball)
 document.addEventListener('keydown', e => {
   const { x, y } = ball.velocity;
   //console.log(x,y)
-  if (e.keyCode === 87) {//w
+  if (e.keyCode === 87 ||e.keyCode === 38 ) {//w
     //console.log('up')
     Body.setVelocity(ball, { x: x, y: y - 5 });
   }
 
-  if (e.keyCode === 68) {//d
+  if (e.keyCode === 68 || e.keyCode === 39) {
     // console.log('R')
     Body.setVelocity(ball, { x: + 5, y: y });
 
   }
-  if (e.keyCode === 83) {//s
+  if (e.keyCode === 83  ||e.keyCode === 40) {//s
     //console.log('d')
     Body.setVelocity(ball, { x, y: y + 5 });
   }
-  if (e.keyCode === 65) {//a
+  if (e.keyCode === 65 ||e.keyCode === 37) {//a
     //console.log('L')
     Body.setVelocity(ball, { x: -5, y });
   }
