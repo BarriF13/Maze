@@ -1,3 +1,4 @@
+/******************* Boilerplate **************************/
 const { Engine, Render, Runner, World, Bodies } = Matter;
 
 //**1- new engine
@@ -21,9 +22,24 @@ const render = Render.create({
 Render.run(render);
 // 8- run everything with code below
 Runner.run(Runner.create(), engine);
-// 9- create a shape
-const shape = Bodies.rectangle(200, 200, 50, 50, {
-  isStatic: true
-});
+
+/********************* sample to make a shape ************************/
+
+// 9- create a shape -- from top left of the screen to the center of the object x, y axis:200,  width and height: 50
+//const shape = Bodies.rectangle(200, 200, 50, 50, {
+  //isStatic keeps the shape in place at start
+ //isStatic: true
+//});
 //10- Drop it to world
-World.add(world, shape)
+//World.add(world, shape)
+
+/******** Making a Demo *********/
+//walls
+const walls = [
+  Bodies.rectangle(400, 0, 800, 40, {isStatic: true}),
+  Bodies.rectangle(400, 600, 800, 40, {isStatic: true}),
+  Bodies.rectangle(0, 300, 40, 600, {isStatic: true}),
+  Bodies.rectangle(800,300, 40, 600, {isStatic: true}),
+]
+World.add(world, walls);
+World.add(world, Bodies.rectangle(200, 200, 50, 50));
