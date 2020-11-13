@@ -4,7 +4,8 @@ const {
   Render,
   Runner,
   World,
-  Bodies
+  Bodies,
+  Body
 } = Matter;
 const width = 600;
 const height = 600;
@@ -14,6 +15,7 @@ const unitLength = width / cells;
 
 
 const engine = Engine.create();
+engine.world.gravity.y=0;
 //**2-access snapshots of the object we have 
 const { world } = engine;
 //**-3 render them on screen
@@ -205,19 +207,24 @@ World.add(world, ball)
 
 /***********    Keyboard  *********************/
 document.addEventListener('keydown', e => {
-  if (e.keyCode === 87) {
-    console.log('up')
+  const {x, y} = ball.velocity;
+  //console.log(x,y)
+  if (e.keyCode === 87) {//w
+    //console.log('up')
+    Body.setVelocity(ball, {x: x, y: y-5} );
   } 
   
-  if (e.keyCode === 68) {
-    console.log('R')
+  if (e.keyCode === 68) {//d
+   // console.log('R')
+    Body.setVelocity(ball, {x: + 5, y: y} );
 
   } 
-   if (e.keyCode === 83) {
-    console.log('d')
-
+   if (e.keyCode === 83) {//s
+    //console.log('d')
+    Body.setVelocity(ball, {x, y: y+5} );
   } 
-  if (e.keyCode === 65) {
-    console.log('L')
+  if (e.keyCode === 65) {//a
+    //console.log('L')
+    Body.setVelocity(ball, {x: -5, y} );
   }
 })
